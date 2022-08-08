@@ -18,8 +18,10 @@ public:
         if(root->left==NULL && root->right==NULL)
             return 1;
         int ltree=INT_MIN,rtree=INT_MIN;
-        ltree=findHeight(root->left)+1;
-        rtree=findHeight(root->right)+1;
+        if(root->left)
+            ltree=findHeight(root->left)+1;
+        if(root->right)
+            rtree=findHeight(root->right)+1;
         return max(ltree,rtree);
     }
     
