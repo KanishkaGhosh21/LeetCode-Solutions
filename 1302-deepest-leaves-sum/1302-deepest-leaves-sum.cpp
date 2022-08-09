@@ -11,32 +11,33 @@
  */
 class Solution {
 public:
-    int findHeight(TreeNode * root)
+    int sum=0;
+    int maxDepth=0;
+    void DeepestSum(TreeNode *root,int level)
     {
         if(root==NULL)
-            return 0;
+            return;
         if(root->left==NULL && root->right==NULL)
-            return 1;
-        int ltree=INT_MIN,rtree=INT_MIN;
-        if(root->left)
-            ltree=findHeight(root->left)+1;
-        if(root->right)
-            rtree=findHeight(root->right)+1;
-        return max(ltree,rtree);
-    }
-    
-    int DeepestSum(TreeNode *root,int height,int level)
-    {
-        if(root==NULL)
-            return 0;
-        if(level==height)
-            return root->val;
-        return DeepestSum(root->left,height,level+1) + 
-                DeepestSum(root->right,height,level+1);
+        {
+            if(level==maxDepth)
+            {
+                sum+=root->val;
+                return;
+            }
+            if(level>maxDepth)
+            {
+                maxDepth=level;
+                sum=root->val;
+                return;
+            }
+            return;
+        }
+        DeepestSum(root->left,level+1);
+        DeepestSum(root->right,level+1);
     }
     
     int deepestLeavesSum(TreeNode* root) {
-        int n=findHeight(root);
-        return DeepestSum(root,n,1);
+        DeepestSum(root,0);
+        return sum;
     }
 };
