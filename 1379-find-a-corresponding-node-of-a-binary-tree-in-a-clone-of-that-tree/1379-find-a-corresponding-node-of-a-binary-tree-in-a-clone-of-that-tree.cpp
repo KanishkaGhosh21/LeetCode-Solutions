@@ -18,9 +18,9 @@ public:
         else   
         {
             TreeNode *ltree=getTargetCopy(original->left,cloned->left,target);
-            TreeNode *rtree=getTargetCopy(original->right,cloned->right,target);
             if(ltree!=NULL)
                 return ltree;
+            TreeNode *rtree=getTargetCopy(original->right,cloned->right,target);
             if(rtree!=NULL)
                 return rtree;   
         }
