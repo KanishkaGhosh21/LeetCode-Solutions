@@ -1,29 +1,23 @@
 class Solution {
 public:
-    void findPermutations(vector<int> &nums,vector<int> &check, vector<int> &ds, vector<vector<int>> &ans)
+    void findPermutations(vector<int> &nums,int ind, vector<vector<int>> &ans)
     {
-        if(ds.size()==nums.size())
+        if(ind==nums.size())
         {
-            ans.push_back(ds);
+            ans.push_back(nums);
             return;
         }
-        for(int i=0;i<nums.size();i++)
+        for(int i=ind;i<nums.size();i++)
         {
-            if(check[i]!=0)
-                continue;
-            ds.push_back(nums[i]);
-            check[i]=1;
-            findPermutations(nums,check,ds,ans);
-            check[i]=0;
-            ds.pop_back();
+            swap(nums[ind],nums[i]);
+            findPermutations(nums,ind+1,ans);
+            swap(nums[ind],nums[i]);
         }
     }
     
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<int> ds;
         vector<vector<int>> ans;
-        vector<int> check(nums.size(),0);
-        findPermutations(nums,check,ds,ans);
+        findPermutations(nums,0,ans);
         return ans;
     }
 };
