@@ -2,12 +2,16 @@ class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         vector<int> ans;
-        int n=nums1.size();
-        for(int i=0;i<n;i++)
+        unordered_set<int> set;
+        sort(nums2.begin(),nums2.end());
+        for(int i=0;i<nums1.size();i++)
+            set.insert(nums1[i]);
+        for(int i=0;i<nums2.size();i++)
         {
-            if(find(nums2.begin(),nums2.end(),nums1[i])!=nums2.end())
-                if(find(ans.begin(),ans.end(),nums1[i])==ans.end())
-                    ans.push_back(nums1[i]);
+            if(i!=0 && nums2[i]==nums2[i-1])
+               continue;
+            if(set.find(nums2[i])!=set.end())
+               ans.push_back(nums2[i]);
         }
         return ans;
     }
